@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
-const syncAndSeed = require('../db');
+const { syncAndSeed } = require('../db');
 const api = require('./routes');
+const path = require('path');
 
 app.use('/', api);
+app.use('/dist', express.static(path.join(__dirname, '../dist')));
 
 const init = () => {
   syncAndSeed();
