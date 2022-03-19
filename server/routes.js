@@ -18,8 +18,8 @@ router.get('/api/bikes', async (req, res, next) => {
 
 router.get('/api/manufacturers', async (req, res, next) => {
   try {
-    const bikes = await Manufacturer.findAll();
-    res.send(bikes);
+    const manufacturers = await Manufacturer.findAll();
+    res.send(manufacturers);
   } catch (error) {
     next(error);
   }
