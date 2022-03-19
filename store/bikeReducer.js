@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+//action types----------------------------
 const LOAD_BIKES = 'LOAD_BIKES';
 
+//thonks----------------------------------
 export const loadBikes = () => {
   return async (dispatch) => {
     const bikes = (await axios.get('/api/bikes')).data;
@@ -9,6 +11,7 @@ export const loadBikes = () => {
   };
 };
 
+//reducer---------------------------------
 const bikeReducer = (state = [], action) => {
   switch (action.type) {
     case LOAD_BIKES:

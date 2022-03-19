@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 class BikeList extends React.Component {
   render() {
-    // console.log(this.props);
     return (
       <div>
         <h1>Bikes I have owned</h1>
