@@ -1,14 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class ManufacturerList extends React.Component {
   render() {
     return (
       <div>
-        <h1>Manufacturers of these bikes</h1>
+        <h3>Bike Manufacturers</h3>
         <ul>
           {this.props.manufacturers.map((manufacturer) => {
-            return <li key={manufacturer.id}>{manufacturer.name}</li>;
+            const bikes = this.props.bikes.filter(
+              (bike) => bike.manufacturerId === manufacturer.id
+            );
+            return (
+              <li key={manufacturer.id}>
+                <Link to={`/manufacturers/${manufacturer.id}`}>
+                  {manufacturer.name} ({bikes.length})
+                </Link>
+              </li>
+            );
           })}
         </ul>
       </div>

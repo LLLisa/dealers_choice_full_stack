@@ -11,6 +11,8 @@ const Manufacturer = db.define('manufacturer', {
 
 const Bike = db.define('bike', {
   name: Sequelize.STRING,
+  style: Sequelize.STRING,
+  material: Sequelize.STRING,
 });
 
 Bike.belongsTo(Manufacturer);
@@ -20,11 +22,26 @@ Manufacturer.hasMany(Bike);
 const syncAndSeed = async () => {
   try {
     await db.sync({ force: true });
-    const allCity = await Manufacturer.create({ name: 'All-City' });
-    const cannondale = await Manufacturer.create({ name: 'Cannondale' });
-    const spaceHorse = await Bike.create({ name: 'Space Horse' });
-    const natureBoy = await Bike.create({ name: 'Nature Boy' });
-    const sixThirteen = await Bike.create({ name: '613' });
+    const [allCity, cannondale, spaceHorse, natureBoy, sixThirteen] =
+      await Promise.all([
+        Manufacturer.create({ name: 'All-City' }),
+        Manufacturer.create({ name: 'Cannondale' }),
+        Bike.create({
+          name: 'Space Horse',
+          style: 'Touring',
+          material: 'Steel',
+        }),
+        Bike.create({
+          name: 'Nature Boy',
+          style: 'CycloCross',
+          material: 'Steel',
+        }),
+        Bike.create({
+          name: '613',
+          style: 'Road Bike',
+          material: 'Carbon/Aluminum',
+        }),
+      ]);
     spaceHorse.manufacturerId = allCity.id;
     natureBoy.manufacturerId = allCity.id;
     sixThirteen.manufacturerId = cannondale.id;

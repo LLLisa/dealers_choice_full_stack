@@ -17,15 +17,15 @@ router.get('/api/bikes', async (req, res, next) => {
   }
 });
 
-router.post('/api/bikes'),
-  async (req, res, next) => {
-    try {
-      const newBike = await Bike.create(req.body);
-      res.sendStatus(201);
-    } catch (error) {
-      next(error);
-    }
-  };
+// router.post('/api/bikes'),
+// async (req, res, next) => {
+//   try {
+//     const newBike = await Bike.create(req.body);
+//     res.sendStatus(201);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 //manufacturer routes-------------------------
 router.get('/api/manufacturers', async (req, res, next) => {

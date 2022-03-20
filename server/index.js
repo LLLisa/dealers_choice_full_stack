@@ -18,3 +18,5 @@ const init = () => {
 };
 
 init();
+
+//sefaria.org/api/texts/Genesis
