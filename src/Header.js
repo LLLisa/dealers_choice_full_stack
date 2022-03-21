@@ -24,7 +24,6 @@ const Header = ({ bikes, manufacturers }) => {
           Manufacturers(
           {manufacturers.length})
         </Link>
-        {<Create />}
       </h2>
     </div>
   );

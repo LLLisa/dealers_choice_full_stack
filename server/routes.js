@@ -21,11 +21,29 @@ router.get('/api/bikes', async (req, res, next) => {
   }
 });
 
+router.post('/api/bikes', async (req, res, next) => {
+  try {
+    const newBike = await Bike.create(req.body);
+    res.status(201).send(newBike);
+  } catch (error) {
+    next(error);
+  }
+});
+
 //manufacturer routes-------------------------
 router.get('/api/manufacturers', async (req, res, next) => {
   try {
     const manufacturers = await Manufacturer.findAll();
     res.send(manufacturers);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post('/api/manufacturers', async (req, res, next) => {
+  try {
+    const newManufacturer = await Manufacturer.create(req.body);
+    res.status(201).send(newManufacturer);
   } catch (error) {
     next(error);
   }
