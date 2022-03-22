@@ -3,6 +3,7 @@ import axios from 'axios';
 //action types----------------------------
 const LOAD_BIKES = 'LOAD_BIKES';
 const CREATE_BIKE = 'CREATE_BIKE';
+const DELETE_THE_BIKE = 'DELETE_THE_BIKE';
 
 //thonks----------------------------------
 export const loadBikes = () => {
@@ -22,6 +23,16 @@ export const createBike = (newBike) => {
   };
 };
 
+export const deleteTheBike = (bike) => {
+  return async (dispatch) => {
+    await axios.delete(`/api/bikes/${bike.id}`);
+    dispatch({
+      type: DELETE_THE_BIKE,
+      bike,
+    });
+  };
+};
+
 //reducer---------------------------------
 const bikeReducer = (state = [], action) => {
   switch (action.type) {
@@ -29,6 +40,8 @@ const bikeReducer = (state = [], action) => {
       return action.bikes;
     case CREATE_BIKE:
       return [...state, action.bike];
+    case DELETE_THE_BIKE:
+      return state.filter((x) => x.id !== action.bike.id);
   }
   return state;
 };

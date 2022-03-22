@@ -30,6 +30,16 @@ router.post('/api/bikes', async (req, res, next) => {
   }
 });
 
+router.delete('/api/bikes/:id', async (req, res, next) => {
+  try {
+    const bike = await Bike.findByPk(req.params.id);
+    await bike.destroy();
+    res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
+});
+
 //manufacturer routes-------------------------
 router.get('/api/manufacturers', async (req, res, next) => {
   try {
@@ -42,6 +52,7 @@ router.get('/api/manufacturers', async (req, res, next) => {
 
 router.post('/api/manufacturers', async (req, res, next) => {
   try {
+    console.log(req.body);
     const newManufacturer = await Manufacturer.create(req.body);
     res.status(201).send(newManufacturer);
   } catch (error) {

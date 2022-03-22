@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createBike } from '../store/bikeReducer';
+import { createManufacturer } from '../store/manufacturerReducer';
 
 class Create extends React.Component {
   constructor() {
     super();
     this.state = {
       name: '',
+      style: '',
+      material: '',
       manufacturer: '',
     };
     this.submitForm = this.submitForm.bind(this);
@@ -20,14 +23,22 @@ class Create extends React.Component {
     ev.preventDefault();
     const newBike = {
       name: this.state.name,
+      style: this.state.style,
+      material: this.state.material,
+    };
+    const newManufacturer = {
       manufacturer: this.state.manufacturer,
     };
-    this.props.create(newBike);
-    this.setState({ name: '', manufacturer: '' });
+    //TODO: connect newBike to NewManufacturer
+    //maybe with Sequelize.findOrCreate()
+    this.props.createBike(newBike);
+    this.props.createManufacturer(newManufacturer);
+
+    this.setState({ name: '', style: '', material: '', manufacturer: '' });
   }
 
   render() {
-    const { name, manufacturer } = this.state;
+    const { name, style, material, manufacturer } = this.state;
     return (
       <form
         style={{
@@ -35,7 +46,7 @@ class Create extends React.Component {
           flexFlow: 'column',
           alignItems: 'center',
         }}
-        onSubmit={this.submitForm} //this is bound in the constructor
+        onSubmit={this.submitForm}
       >
         <div>
           <input
@@ -47,13 +58,13 @@ class Create extends React.Component {
           <input
             name="style"
             placeholder="Bike Style"
-            value={name}
+            value={style}
             onChange={(ev) => this.handleChange(ev)}
           ></input>
           <input
             name="material"
             placeholder="Bike Material"
-            value={name}
+            value={material}
             onChange={(ev) => this.handleChange(ev)}
           ></input>
         </div>
@@ -66,7 +77,10 @@ class Create extends React.Component {
             style={{ margin: '1rem 0 1rem 0' }}
           ></input>
         </div>
-        <button style={{ width: '30%' }} disabled={!name || !manufacturer}>
+        <button
+          style={{ width: '30%' }}
+          disabled={!name || !style || !material || !manufacturer}
+        >
           create
         </button>
       </form>
@@ -76,8 +90,11 @@ class Create extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    create: async (newBike) => {
+    createBike: async (newBike) => {
       await dispatch(createBike(newBike));
+    },
+    createManufacturer: async (newManufacturer) => {
+      await dispatch(createManufacturer(newManufacturer));
     },
   };
 };
