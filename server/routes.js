@@ -52,7 +52,6 @@ router.get('/api/manufacturers', async (req, res, next) => {
 
 router.post('/api/manufacturers', async (req, res, next) => {
   try {
-    console.log(req.body);
     const newManufacturer = await Manufacturer.create(req.body);
     res.status(201).send(newManufacturer);
   } catch (error) {

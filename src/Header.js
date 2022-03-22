@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Create from './Create';
 import { Link } from 'react-router-dom';
 
 const Header = ({ bikes, manufacturers }) => {
