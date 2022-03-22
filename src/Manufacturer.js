@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Manufacturer = ({ bikes, manufacturers, match }) => {
   return (
@@ -15,11 +16,15 @@ const Manufacturer = ({ bikes, manufacturers, match }) => {
       <ul>
         {bikes.length
           ? bikes
-              .filter((x) => {
-                return x.manufacturerId === match.params.id * 1;
+              .filter((bike) => {
+                return bike.manufacturerId === match.params.id * 1;
               })
-              .map((x) => {
-                return <li key={x.id}>{x.name}</li>;
+              .map((bike) => {
+                return (
+                  <li key={bike.id}>
+                    <Link to={`/bikes/${bike.id}`}>{bike.name}</Link>
+                  </li>
+                );
               })
           : ''}
       </ul>
